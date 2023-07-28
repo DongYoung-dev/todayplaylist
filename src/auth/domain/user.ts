@@ -7,4 +7,6 @@ export class User {
     nickname: string;
     @Column()
     profileImgUrl: string;
+    @Column()
+    googleId: string;
 }

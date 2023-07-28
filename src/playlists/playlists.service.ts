@@ -26,7 +26,7 @@ export class PlaylistsService {
     }
 
     async viewPlaylist(playlistId: string, forModify: boolean) {
-        const userId = '4';
+        const userId = '1';
 
         if (forModify === false) {
             //최근본 플레이리스트 등록, 봤던 플레이리스트 시간 최신화, 5개 이상시 
@@ -80,7 +80,7 @@ export class PlaylistsService {
     }
 
     async patchLike(playlistId: string, like: boolean) {
-        const userId = '2' ////////수정필요
+        const userId = '1' ////////수정필요
         const ifLike = await this.likeRepository.findOne({ where: { userId: userId, playlistId: playlistId } })
         // console.log(ifLike)
 
@@ -92,7 +92,7 @@ export class PlaylistsService {
     }
 
     async searchPlaylist(q: string, page: number, size: number) {
-        const userId = '2'
+        const userId = '1'
 
         const allPlaylists = await this.playlistRepository.find({
             where: [
@@ -136,7 +136,7 @@ export class PlaylistsService {
     }
 
     async getAllPlaylist(page: number, size: number) {
-        const userId = '2' //////수정필요
+        const userId = '1' //////수정필요
 
         const allPlaylists = await this.playlistRepository.find({
             order: {
@@ -179,7 +179,7 @@ export class PlaylistsService {
     }
 
     async getBestPlaylist() {
-        const userId = '2' //////////수정필요
+        const userId = '1' //////////수정필요
 
         const playlists = await this.playlistRepository.find({
             order: {
@@ -205,11 +205,12 @@ export class PlaylistsService {
     }
 
 
-    async savePlaylist(body: Playlist) {
-        // console.log(body.title)
+    async savePlaylist(body: Playlist, file: Express.MulterS3.File) {
+        console.log(body.title)
+        console.log(body)
         const thisPlaylist = {
-            userId: '4', //////////////////////수정필요
-            thumbnailUrl: 'www.zz', ///////////수정필요
+            userId: '1', //////////////////////수정필요
+            thumbnailUrl: file.location, ///////////수정필요
             viewCount: 0,
             title: body.title,
             videoId: JSON.stringify(body.videoId),
@@ -275,7 +276,7 @@ export class PlaylistsService {
     }
 
     async searchLikedPlaylist(q: string, page: number, size: number) {
-        const userId = '2' ///////////수정필요
+        const userId = '1' ///////////수정필요
 
         const allLikedPlaylists = await this.likeRepository.find({
             where: {
@@ -325,7 +326,7 @@ export class PlaylistsService {
     }
 
     async getLikedPlaylist(page: number, size: number) {
-        const userId = '2' ///////////수정필요
+        const userId = '1' ///////////수정필요
 
         const allLikedPlaylists = await this.likeRepository.find({
             where: {
@@ -417,9 +418,9 @@ export class PlaylistsService {
 
     }
 
-    async modifyPlaylist(body: Playlist, playlistId: string) {
+    async modifyPlaylist(body: Playlist, playlistId: string, file: Express.MulterS3.File) {
         const thisPlaylist = {
-            thumbnailUrl: 'www.zz', ///////////수정필요
+            thumbnailUrl: file.location, ///////////수정필요
             title: body.title,
             videoId: JSON.stringify(body.videoId),
             hashtag: JSON.stringify(body.hashtag)

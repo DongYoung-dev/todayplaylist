@@ -1,15 +1,20 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from './middleware/auth.middleware';
+import { AuthController } from './auth/auth.controller';
+import { PlaylistsController } from './playlists/playlists.controller';
 import { User } from './auth/domain/user';
 import { Video } from './playlists/domain/video';
 import { Playlist } from './playlists/domain/playlist';
 import { Like } from './playlists/domain/like';
 import { Recent } from './playlists/domain/recent';
+import { GoogleStrategy } from './auth/passport/google.strategy';
 
 @Module({
   imports: [
@@ -26,8 +31,22 @@ import { Recent } from './playlists/domain/recent';
     }),
     PlaylistsModule,
     AuthModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.TOKENKEY,
+      signOptions: { expiresIn: '60s' },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GoogleStrategy],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude({ path: '/auth/google', method: RequestMethod.GET })
+      .exclude({ path: '/auth/google/redirect', method: RequestMethod.GET })
+      .forRoutes(AuthController);
+  }
+
+}
