@@ -59,9 +59,12 @@ export class PlaylistsService {
 
         const songs = [];
 
-        for (const videoId of JSON.parse(playlist.videoId)) {
-            const videoInfo = await this.videoRepository.findOne({ where: { videoId: videoId } })
+        console.log(JSON.parse(playlist.videoId))
 
+        for (const videoId of JSON.parse(playlist.videoId)) {
+            console.log(videoId)
+            const videoInfo = await this.videoRepository.findOne({ where: { videoId: videoId } })
+            console.log(videoInfo)
             songs.push({
                 videoId: videoId,
                 title: videoInfo.title,
@@ -213,8 +216,8 @@ export class PlaylistsService {
             thumbnailUrl: file.location, ///////////수정필요
             viewCount: 0,
             title: body.title,
-            videoId: JSON.stringify(body.videoId),
-            hashtag: JSON.stringify(body.hashtag)
+            videoId: body.videoId,
+            hashtag: body.hashtag
         }
 
         await this.playlistRepository.save(thisPlaylist)

@@ -4,11 +4,8 @@ import { multerOptionsFactory_profileImage } from 'src/common/utils/multer.optio
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { User } from './domain/user';
-import * as dotenv from 'dotenv';
 
-console.log(process.env.TOKENKEY)
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),

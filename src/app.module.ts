@@ -40,13 +40,14 @@ import { GoogleStrategy } from './auth/passport/google.strategy';
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .exclude({ path: '/auth/google', method: RequestMethod.GET })
-      .exclude({ path: '/auth/google/redirect', method: RequestMethod.GET })
-      .forRoutes(AuthController);
-  }
+// implements NestModule
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     .exclude({ path: '/auth/google', method: RequestMethod.GET })
+  //     .exclude({ path: '/auth/google/redirect', method: RequestMethod.GET })
+  //     .forRoutes(AuthController);
+  // }
 
 }
