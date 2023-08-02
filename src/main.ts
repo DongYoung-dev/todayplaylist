@@ -9,7 +9,10 @@ const httpsOptions = {
 };
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions
+  });
+
   app.enableCors({ // cors 설정
     origin: [
       'http://localhost:3000',
@@ -18,7 +21,9 @@ async function bootstrap() {
     ],
     credentials: true, // 쿠키를 사용할 수 있게 해당 값을 true로 설정
   });
+
   app.use(cookieParser());
+
   await app.listen(443);
 }
 bootstrap();
