@@ -54,6 +54,24 @@ export class AuthController {
         });
 
         console.log(response.data)
+        const thisUser = await this.authService.checkAndRegisterUser(response.data)
+        
+        const payload = {
+            userId: thisUser.userId,
+            nickname: thisUser.nickname,
+            profileImage: thisUser.profileImgUrl,
+            googleId: thisUser.googleId
+        }
+
+        const token = await this.jwtService.signAsync(payload)
+
+        res.cookie('token', token, {
+            maxAge: 1000 * 60 * 60 * 24,
+            sameSite: true, // "none"
+            secure: true,
+            httpOnly: true,
+            domain: "https://www.todayplaylist.site", // "www.backend.com"
+        })
 
         return res.redirect('https://www.todayplaylist.site')
 

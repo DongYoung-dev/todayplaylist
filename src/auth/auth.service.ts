@@ -12,40 +12,22 @@ export class AuthService {
         this.userRepository = userRepository;
     }
 
-    async googleLogin(req) {
-        if (!req.user) {
-            return {
-                message: 'No user from google'
-            }
-        }
-        console.log(req.user)
-        let exUser = await this.userRepository.findOne({ where: { googleId: req.user.googleId } })
+    async checkAndRegisterUser(data) {
+        const thisUser = await this.userRepository.findOne( { where: { googleId: data.id } } )
 
-        if (exUser) {
-            return {
-                message: 'User information from google',
-                user: req.user
-            }
-        } else {
-            const user = {
-                nickname: req.user.firstName + req.user.lastName,
-                profileImgUrl: req.user.picture,
-                googleId: req.user.googleId
+        if(!thisUser) {
+            const userData = {
+                nickname: data.family_name + data.given_name,
+                profileImgUrl: data.picture,
+                googleId: data.id
             }
 
-            try {
-                await this.userRepository.save(user)
-            } catch (err) {
-                console.log(err)
-            }
+            const registeredUser = await this.userRepository.save(userData)
+
+            return registeredUser
         }
 
-        console.log('3')
-
-        return {
-            message: 'User information from google',
-            user: req.user
-        }
+        return thisUser
     }
 
     async updateNickname(nickname: string) {

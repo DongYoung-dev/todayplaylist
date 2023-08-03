@@ -3,14 +3,14 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import * as fs from 'fs'
 
-const httpsOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/api.todayplaylist.site/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/api.todayplaylist.site/cert.pem'),
-};
+// const httpsOptions = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/api.todayplaylist.site/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/api.todayplaylist.site/cert.pem'),
+// };
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    httpsOptions
+    // httpsOptions
   });
 
   app.enableCors({ // cors 설정
@@ -24,6 +24,6 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
-  await app.listen(443);
+  await app.listen(3000);
 }
 bootstrap();
