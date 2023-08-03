@@ -66,15 +66,15 @@ export class AuthController {
         const token = await this.jwtService.signAsync(payload)
         console.log(token)
 
-        res.redirect('https://www.todayplaylist.site')
-
-        return res.cookie('token', token, {
+        res.cookie('token', token, {
             maxAge: 1000 * 60 * 60 * 24,
             sameSite: true, // "none"
             secure: true,
             httpOnly: true,
             domain: "https://www.todayplaylist.site", // "www.backend.com"
         })
+
+        return res.redirect('https://www.todayplaylist.site')
 
 
         // if (data.message === 'User information from google') {
