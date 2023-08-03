@@ -55,7 +55,7 @@ export class AuthController {
 
         console.log(response.data)
         const thisUser = await this.authService.checkAndRegisterUser(response.data)
-        
+
         const payload = {
             userId: thisUser.userId,
             nickname: thisUser.nickname,
@@ -64,16 +64,17 @@ export class AuthController {
         }
 
         const token = await this.jwtService.signAsync(payload)
+        console.log(token)
 
-        res.cookie('token', token, {
+        res.redirect('https://www.todayplaylist.site')
+
+        return res.cookie('token', token, {
             maxAge: 1000 * 60 * 60 * 24,
             sameSite: true, // "none"
             secure: true,
             httpOnly: true,
             domain: "https://www.todayplaylist.site", // "www.backend.com"
         })
-
-        return res.redirect('https://www.todayplaylist.site')
 
 
         // if (data.message === 'User information from google') {
@@ -114,7 +115,7 @@ export class AuthController {
     getUserInfo(@Res() res) {
         const userId = res.locals.userId;
         console.log(userId)
-        
+
         return this.authService.getUserInfo(userId);
     }
 }
