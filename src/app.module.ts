@@ -14,7 +14,6 @@ import { Video } from './playlists/domain/video';
 import { Playlist } from './playlists/domain/playlist';
 import { Like } from './playlists/domain/like';
 import { Recent } from './playlists/domain/recent';
-import { GoogleStrategy } from './auth/passport/google.strategy';
 
 @Module({
   imports: [
@@ -38,16 +37,18 @@ import { GoogleStrategy } from './auth/passport/google.strategy';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, GoogleStrategy],
+  providers: [AppService],
 })
-// implements NestModule
-export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer
-  //     .apply(AuthMiddleware)
-  //     .exclude({ path: '/auth/google', method: RequestMethod.GET })
-  //     .exclude({ path: '/auth/google/redirect', method: RequestMethod.GET })
-  //     .forRoutes(AuthController);
-  // }
+// 
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: 'auth/google', method: RequestMethod.GET },
+        { path: 'auth/google/redirect', method: RequestMethod.GET },
+      )
+      .forRoutes(AuthController, PlaylistsController);
+  }
 
 }
