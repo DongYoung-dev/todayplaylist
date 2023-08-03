@@ -111,7 +111,10 @@ export class AuthController {
     }
 
     @Get('')
-    getUserInfo() {
-        return this.authService.getUserInfo();
+    getUserInfo(@Res() res) {
+        const userId = res.locals.userId;
+        console.log(userId)
+        
+        return this.authService.getUserInfo(userId);
     }
 }

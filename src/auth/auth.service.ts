@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Res } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './domain/user';
@@ -50,8 +50,8 @@ export class AuthService {
         return { message: "Success" };
     }
 
-    async getUserInfo() {
-        const userId = '1'
+    async getUserInfo(userId: string) {
+        console.log(userId)
 
         return await this.userRepository.findOne( { where: { userId: userId } } )
     }
