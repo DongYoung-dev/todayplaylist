@@ -39,16 +39,16 @@ import { Recent } from './playlists/domain/recent';
   controllers: [AppController],
   providers: [AppService],
 })
-// 
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .exclude(
-        { path: 'auth/google', method: RequestMethod.GET },
-        { path: 'auth/google/redirect', method: RequestMethod.GET },
-      )
-      .forRoutes(AuthController, PlaylistsController);
-  }
+// implements NestModule
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     .exclude(
+  //       { path: 'auth/google', method: RequestMethod.GET },
+  //       { path: 'auth/google/redirect', method: RequestMethod.GET },
+  //     )
+  //     .forRoutes(AuthController, PlaylistsController);
+  // }
 
 }

@@ -113,7 +113,7 @@ export class AuthController {
 
     @Get('')
     getUserInfo(@Res() res) {
-        const userId = res.locals.userId;
+        const userId = '1';
         console.log(userId)
 
         return this.authService.getUserInfo(userId);
