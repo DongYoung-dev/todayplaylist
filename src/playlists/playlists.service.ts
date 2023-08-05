@@ -232,7 +232,7 @@ export class PlaylistsService {
             map(res => {
                 const searchResults = res.data.items.map(item => ({
                     videoId: item.id.videoId,
-                    title: item.snippet.title.replace(/&#39;/g, "'"),
+                    title: item.snippet.title.replace(/&#39;/g, "'").replace(/&amp;/g, '&'),
                     thumbnailUrl: item.snippet.thumbnails.default.url,
                 }))
                 return searchResults;
