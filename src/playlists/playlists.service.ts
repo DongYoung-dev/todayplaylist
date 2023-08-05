@@ -422,14 +422,25 @@ export class PlaylistsService {
     }
 
     async modifyPlaylist(body: Playlist, playlistId: string, file: Express.MulterS3.File) {
-        const thisPlaylist = {
-            thumbnailUrl: file.location, ///////////수정필요
-            title: body.title,
-            videoId: JSON.stringify(body.videoId),
-            hashtag: JSON.stringify(body.hashtag)
-        }
+        if (file) {
+            const thisPlaylist = {
+                thumbnailUrl: file.location, ///////////수정필요
+                title: body.title,
+                videoId: JSON.stringify(body.videoId),
+                hashtag: JSON.stringify(body.hashtag)
+            }
 
-        await this.playlistRepository.update(playlistId, thisPlaylist)
+            await this.playlistRepository.update(playlistId, thisPlaylist)
+        } else {
+            const thisPlaylist = {
+                thumbnailUrl: body.thumbnailUrl, ///////////수정필요
+                title: body.title,
+                videoId: JSON.stringify(body.videoId),
+                hashtag: JSON.stringify(body.hashtag)
+            }
+
+            await this.playlistRepository.update(playlistId, thisPlaylist)
+        }
     }
 
     async getRecentPlaylist() {
