@@ -11,7 +11,7 @@ export class Playlist {
     title: string;
     @Column()
     viewCount: number;
-    @Column()
+    @Column("varchar", {length: 8191})
     videoId: string;
     @Column()
     hashtag: string;

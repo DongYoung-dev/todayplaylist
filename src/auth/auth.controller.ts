@@ -112,10 +112,11 @@ export class AuthController {
     }
 
     @Get('')
-    getUserInfo(@Res() res) {
+    async getUserInfo(@Res() res) {
         const userId = '1';
-        console.log(userId)
 
-        return this.authService.getUserInfo(userId);
+        const thisUser = await this.authService.getUserInfo(userId);
+
+        res.send(thisUser)
     }
 }
