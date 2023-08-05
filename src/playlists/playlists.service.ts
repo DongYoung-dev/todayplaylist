@@ -8,6 +8,7 @@ import { Video } from './domain/video';
 import { Playlist } from './domain/playlist';
 import { Like } from './domain/like'
 import { Recent } from './domain/recent'
+import { unescape } from 'querystring';
 
 @Injectable()
 export class PlaylistsService {
@@ -231,7 +232,7 @@ export class PlaylistsService {
             map(res => {
                 const searchResults = res.data.items.map(item => ({
                     videoId: item.id.videoId,
-                    title: item.snippet.title,
+                    title: item.snippet.title.replace(/&#39;/g, "'"),
                     thumbnailUrl: item.snippet.thumbnails.default.url,
                 }))
                 return searchResults;
