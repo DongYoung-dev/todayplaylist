@@ -80,7 +80,7 @@ export class AuthController {
         const payload = {
             userId: thisUser.userId,
             nickname: thisUser.nickname,
-            profileImage: thisUser.profileImgUrl,
+            profileImgUrl: thisUser.profileImgUrl,
             googleId: thisUser.googleId,
         };
 
@@ -119,7 +119,7 @@ export class AuthController {
 
             res.send(thisUser);
         } else {
-            res.send({ login: false });
+            res.status(401).send({ login: false });
         }
     }
 

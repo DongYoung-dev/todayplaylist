@@ -38,7 +38,7 @@ import { Recent } from './playlists/domain/recent';
     JwtModule.register({
       global: true,
       secret: process.env.TOKENKEY,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [AppController],
@@ -50,9 +50,9 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
-        { path: 'auth/google', method: RequestMethod.GET },
-        { path: 'auth/google/redirect', method: RequestMethod.GET },
-        { path: 'auth/logout', method: RequestMethod.DELETE },
+        { path: '/auth/google', method: RequestMethod.GET },
+        { path: '/auth/google/redirect', method: RequestMethod.GET },
+        { path: '/auth/logout', method: RequestMethod.DELETE },
       )
       .forRoutes(AuthController, PlaylistsController);
   }
