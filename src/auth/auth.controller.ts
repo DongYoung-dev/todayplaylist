@@ -99,7 +99,7 @@ export class AuthController {
             .status(200)
             .send(thisUser)
 
-        res.redirect(cliendRedirect)
+        res.redirect(`https://www.todayplaylist.site${cliendRedirect}`)
     }
 
     @Patch('nickname')
