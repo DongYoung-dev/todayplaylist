@@ -19,9 +19,9 @@ import { Recent } from './domain/recent';
     TypeOrmModule.forFeature([Recent]),
     MulterModule.registerAsync({
       useFactory: multerOptionsFactory_thumbnail,
-    })
+    }),
   ],
   controllers: [PlaylistsController],
-  providers: [PlaylistsService]
+  providers: [PlaylistsService],
 })
 export class PlaylistsModule {}

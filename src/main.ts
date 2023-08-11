@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
-import * as fs from 'fs'
+import * as fs from 'fs';
 
 // const httpsOptions = {
 //   key: fs.readFileSync('/etc/letsencrypt/live/api.todayplaylist.site/privkey.pem'),
@@ -13,11 +13,12 @@ async function bootstrap() {
     // httpsOptions
   });
 
-  app.enableCors({ // cors 설정
+  app.enableCors({
+    // cors 설정
     origin: [
       'http://localhost:3000',
       'https://todayplaylist.site',
-      'https://www.todayplaylist.site'
+      'https://www.todayplaylist.site',
     ],
     credentials: true, // 쿠키를 사용할 수 있게 해당 값을 true로 설정
   });

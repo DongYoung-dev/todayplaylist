@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -26,7 +31,7 @@ import { Recent } from './playlists/domain/recent';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [User, Video, Playlist, Like, Recent],
-      synchronize: true
+      synchronize: true,
     }),
     PlaylistsModule,
     AuthModule,
@@ -50,5 +55,4 @@ export class AppModule {
   //     )
   //     .forRoutes(AuthController, PlaylistsController);
   // }
-
 }

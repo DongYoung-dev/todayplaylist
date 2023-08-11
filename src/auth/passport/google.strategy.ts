@@ -8,30 +8,34 @@ config();
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  constructor() {
+    super({
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      callbackURL: 'http://localhost:3000/auth/google/redirect',
+      scope: ['email', 'profile'],
+    });
+  }
 
-    constructor() {
-        super({
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_SECRET,
-            callbackURL: 'http://localhost:3000/auth/google/redirect',
-            scope: ['email', 'profile'],
-        });
-    }
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: any,
+    done: VerifyCallback,
+  ): Promise<any> {
+    const { name, emails, photos, id } = profile;
 
-    async validate(accessToken: string, refreshToken: string, profile: any, done: VerifyCallback): Promise<any> {
-        const { name, emails, photos, id } = profile
+    console.log('1');
 
-        console.log('1')
+    const user = {
+      email: emails[0].value,
+      firstName: name.familyName,
+      lastName: name.givenName,
+      picture: photos[0].value,
+      googleId: id,
+      accessToken,
+    };
 
-        const user = {
-            email: emails[0].value,
-            firstName: name.familyName,
-            lastName: name.givenName,
-            picture: photos[0].value,
-            googleId: id,
-            accessToken
-        }
-
-        done(null, user);
-    }
+    done(null, user);
+  }
 }

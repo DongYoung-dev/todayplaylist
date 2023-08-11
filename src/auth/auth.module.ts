@@ -11,10 +11,10 @@ import { User } from './domain/user';
     TypeOrmModule.forFeature([User]),
     MulterModule.registerAsync({
       useFactory: multerOptionsFactory_profileImage,
-    })
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService],
-  exports: [AuthService]
+  exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}
