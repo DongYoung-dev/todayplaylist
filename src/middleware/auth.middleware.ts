@@ -20,7 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
         try {
             // case 1 token 유효
 
-            const token = req.cookies.token0;
+            const token = req.cookies.token;
 
             if (token) {
                 const user = await this.jwtService.verifyAsync(token, {
