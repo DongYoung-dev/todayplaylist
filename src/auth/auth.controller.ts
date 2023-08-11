@@ -46,11 +46,9 @@ export class AuthController {
 
     @Get('google/redirect')
     async googleAuthRedirect(@Req() req, @Res({ passthrough: true }) res) {
-        console.log('*2');
+        console.log('*');
         const code = req.query.code;
-        const cliendRedirect = req.query.redirect;
         console.log(code)
-        console.log(cliendRedirect)
 
         // 인증 코드를 사용해 엑세스 토큰 요청
         const { data } = await axios.default.post(
@@ -98,8 +96,6 @@ export class AuthController {
             })
             .status(200)
             .send(thisUser)
-
-        res.redirect(`https://www.todayplaylist.site${cliendRedirect}`)
     }
 
     @Patch('nickname')
