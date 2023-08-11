@@ -111,9 +111,8 @@ export class AuthController {
 
     @Get('')
     async getUserInfo(@Res() res) {
-        const userId = '1';
-        // const userId = res.locals.userId;
-        // console.log(res.locals)
+        const userId = res.locals.userId;
+        console.log(res.locals)
 
         if (userId) {
             const thisUser = await this.authService.getUserInfo(userId);
