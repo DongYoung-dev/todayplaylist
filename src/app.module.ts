@@ -44,7 +44,6 @@ import { Recent } from './playlists/domain/recent';
   controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer

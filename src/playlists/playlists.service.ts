@@ -8,7 +8,6 @@ import { Video } from './domain/video';
 import { Playlist } from './domain/playlist';
 import { Like } from './domain/like';
 import { Recent } from './domain/recent';
-import { unescape } from 'querystring';
 
 @Injectable()
 export class PlaylistsService {
@@ -26,9 +25,7 @@ export class PlaylistsService {
       (this.recentRepository = recentRepository);
   }
 
-  async viewPlaylist(playlistId: string, forModify: boolean) {
-    const userId = '1';
-
+  async viewPlaylist(playlistId: string, forModify: boolean, userId: string) {
     if (forModify === false) {
       //최근본 플레이리스트 등록, 봤던 플레이리스트 시간 최신화, 5개 이상시
       await this.recentRepository.save({ userId, playlistId });
@@ -96,8 +93,7 @@ export class PlaylistsService {
     };
   }
 
-  async patchLike(playlistId: string, like: boolean) {
-    const userId = '1'; ////////수정필요
+  async patchLike(playlistId: string, like: boolean, userId: string) {
     const ifLike = await this.likeRepository.findOne({
       where: { userId: userId, playlistId: playlistId },
     });
@@ -110,9 +106,7 @@ export class PlaylistsService {
     }
   }
 
-  async searchPlaylist(q: string, page: number, size: number) {
-    const userId = '1';
-
+  async searchPlaylist(q: string, page: number, size: number, userId: string) {
     const allPlaylists = await this.playlistRepository.find({
       where: [
         { title: TypeORMLike(`%${q}%`) },
@@ -159,9 +153,7 @@ export class PlaylistsService {
     };
   }
 
-  async getAllPlaylist(page: number, size: number) {
-    const userId = '1'; //////수정필요
-
+  async getAllPlaylist(page: number, size: number, userId: string) {
     const allPlaylists = await this.playlistRepository.find({
       order: {
         playlistId: 'DESC',
@@ -207,9 +199,7 @@ export class PlaylistsService {
     };
   }
 
-  async getBestPlaylist() {
-    const userId = '1'; //////////수정필요
-
+  async getBestPlaylist(userId: string) {
     const playlists = await this.playlistRepository.find({
       order: {
         viewCount: 'DESC',
@@ -239,12 +229,16 @@ export class PlaylistsService {
     return parsedPlaylists;
   }
 
-  async savePlaylist(body: Playlist, file: Express.MulterS3.File) {
+  async savePlaylist(
+    body: Playlist,
+    file: Express.MulterS3.File,
+    userId: string,
+  ) {
     console.log(body.title);
     console.log(body);
     const thisPlaylist = {
-      userId: '1', //////////////////////수정필요
-      thumbnailUrl: file.location, ///////////수정필요
+      userId: userId,
+      thumbnailUrl: file.location,
       viewCount: 0,
       title: body.title,
       videoId: body.videoId,
@@ -319,13 +313,18 @@ export class PlaylistsService {
           time: formattedTime,
         };
         await this.videoRepository.save(thisVideo);
+
+        return thisVideo;
       }
     }
   }
 
-  async searchLikedPlaylist(q: string, page: number, size: number) {
-    const userId = '1'; ///////////수정필요
-
+  async searchLikedPlaylist(
+    q: string,
+    page: number,
+    size: number,
+    userId: string,
+  ) {
     const allLikedPlaylists = await this.likeRepository.find({
       where: {
         userId: userId,
@@ -384,9 +383,7 @@ export class PlaylistsService {
     };
   }
 
-  async getLikedPlaylist(page: number, size: number) {
-    const userId = '1'; ///////////수정필요
-
+  async getLikedPlaylist(page: number, size: number, userId: string) {
     const allLikedPlaylists = await this.likeRepository.find({
       where: {
         userId: userId,
@@ -438,9 +435,7 @@ export class PlaylistsService {
     };
   }
 
-  async getRegisteredPlaylist(page: number, size: number) {
-    const userId = '1'; //////수정필요
-
+  async getRegisteredPlaylist(page: number, size: number, userId: string) {
     const allRegisteredPlaylists = await this.playlistRepository.find({
       where: {
         userId: userId,
@@ -499,7 +494,7 @@ export class PlaylistsService {
   ) {
     if (file) {
       const thisPlaylist = {
-        thumbnailUrl: file.location, ///////////수정필요
+        thumbnailUrl: file.location,
         title: body.title,
         videoId: JSON.stringify(body.videoId),
         hashtag: JSON.stringify(body.hashtag),
@@ -508,7 +503,7 @@ export class PlaylistsService {
       await this.playlistRepository.update(playlistId, thisPlaylist);
     } else {
       const thisPlaylist = {
-        thumbnailUrl: body.thumbnailUrl, ///////////수정필요
+        thumbnailUrl: body.thumbnailUrl,
         title: body.title,
         videoId: JSON.stringify(body.videoId),
         hashtag: JSON.stringify(body.hashtag),
@@ -518,9 +513,7 @@ export class PlaylistsService {
     }
   }
 
-  async getRecentPlaylist() {
-    const userId = '1'; ///////////수정필요
-
+  async getRecentPlaylist(userId: string) {
     const allRecentPlaylists = await this.recentRepository.find({
       where: {
         userId: userId,

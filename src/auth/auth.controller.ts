@@ -1,20 +1,17 @@
 import {
     Controller,
     Get,
-    Post,
+    //   Post,
     Patch,
     Delete,
     Body,
     Res,
     Req,
-    Query,
-    UseGuards,
     UploadedFile,
     UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
 import * as querystring from 'querystring';
 import * as axios from 'axios';
@@ -48,7 +45,7 @@ export class AuthController {
     async googleAuthRedirect(@Req() req, @Res({ passthrough: true }) res) {
         console.log('*');
         const code = req.query.code;
-        console.log(code)
+        console.log(code);
 
         // 인증 코드를 사용해 엑세스 토큰 요청
         const { data } = await axios.default.post(
@@ -95,7 +92,7 @@ export class AuthController {
                 sameSite: 'none',
             })
             .status(200)
-            .send(thisUser)
+            .send(thisUser);
     }
 
     @Patch('nickname')
@@ -112,7 +109,7 @@ export class AuthController {
     @Get('')
     async getUserInfo(@Res() res) {
         const userId = res.locals.userId;
-        console.log(res.locals)
+        console.log(res.locals);
 
         if (userId) {
             const thisUser = await this.authService.getUserInfo(userId);

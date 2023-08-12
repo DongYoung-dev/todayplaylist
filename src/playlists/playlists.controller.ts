@@ -18,11 +18,16 @@ import { Playlist } from './domain/playlist';
 
 @Controller('playlists')
 export class PlaylistsController {
-  constructor(private readonly playlistsService: PlaylistsService) { }
+  constructor(private readonly playlistsService: PlaylistsService) {}
 
   @Get('view/:playlistId')
-  async viewPlaylist(@Param('playlistId') playlistId: string) {
-    const data = await this.playlistsService.viewPlaylist(playlistId, false);
+  async viewPlaylist(@Param('playlistId') playlistId: string, @Res() res) {
+    const userId = res.locals.userId;
+    const data = await this.playlistsService.viewPlaylist(
+      playlistId,
+      false,
+      userId,
+    );
 
     return data;
   }
@@ -33,7 +38,8 @@ export class PlaylistsController {
     @Body('like') like: boolean,
     @Res() res: Response,
   ) {
-    await this.playlistsService.patchLike(playlistId, like);
+    const userId = res.locals.userId;
+    await this.playlistsService.patchLike(playlistId, like, userId);
 
     res.status(200).json({
       message: 'Success',
@@ -46,24 +52,32 @@ export class PlaylistsController {
     @Query('isLiked') isLiked: boolean,
     @Query('page') page: number,
     @Query('size') size: number,
+    @Res() res: Response,
   ) {
+    const userId = res.locals.userId;
     let data;
 
     if (q && !isLiked)
-      data = await this.playlistsService.searchPlaylist(q, page, size);
+      data = await this.playlistsService.searchPlaylist(q, page, size, userId);
     else if (!q && !isLiked)
-      data = await this.playlistsService.getAllPlaylist(page, size);
+      data = await this.playlistsService.getAllPlaylist(page, size, userId);
     else if (q && isLiked)
-      data = await this.playlistsService.searchLikedPlaylist(q, page, size);
+      data = await this.playlistsService.searchLikedPlaylist(
+        q,
+        page,
+        size,
+        userId,
+      );
     else if (!q && isLiked)
-      data = await this.playlistsService.getLikedPlaylist(page, size);
+      data = await this.playlistsService.getLikedPlaylist(page, size, userId);
 
     return data;
   }
 
   @Get('best')
-  async getBestPlaylist() {
-    const playlists = await this.playlistsService.getBestPlaylist();
+  async getBestPlaylist(@Res() res: Response) {
+    const userId = res.locals.userId;
+    const playlists = await this.playlistsService.getBestPlaylist(userId);
 
     return { playlists };
   }
@@ -75,7 +89,8 @@ export class PlaylistsController {
     @Res() res: Response,
     @UploadedFile() file: Express.MulterS3.File,
   ) {
-    await this.playlistsService.savePlaylist(body, file);
+    const userId = res.locals.userId;
+    await this.playlistsService.savePlaylist(body, file, userId);
 
     res.status(200).json({
       message: 'Success',
@@ -94,28 +109,39 @@ export class PlaylistsController {
   async registerSong(
     @Body('videoId') videoId: string,
     @Body('title') title: string,
-    @Res() res: Response,
   ) {
-    await this.playlistsService.saveSong(videoId, title);
+    const data = await this.playlistsService.saveSong(videoId, title);
 
-    res.status(200).json({
-      message: 'Success',
-    });
+    return data;
   }
 
   @Get('registered')
   async getRegisteredPlaylist(
     @Query('page') page: number,
     @Query('size') size: number,
+    @Res() res: Response,
   ) {
-    const data = await this.playlistsService.getRegisteredPlaylist(page, size);
+    const userId = res.locals.userId;
+    const data = await this.playlistsService.getRegisteredPlaylist(
+      page,
+      size,
+      userId,
+    );
 
     return data;
   }
 
   @Get('modify/:playlistId')
-  async getPlaylistForModify(@Param('playlistId') playlistId: string) {
-    const data = await this.playlistsService.viewPlaylist(playlistId, true);
+  async getPlaylistForModify(
+    @Param('playlistId') playlistId: string,
+    @Res() res,
+  ) {
+    const userId = res.locals.userId;
+    const data = await this.playlistsService.viewPlaylist(
+      playlistId,
+      true,
+      userId,
+    );
 
     return data;
   }
@@ -136,8 +162,9 @@ export class PlaylistsController {
   }
 
   @Get('recentViewed')
-  async getRecentPlaylist() {
-    const data = await this.playlistsService.getRecentPlaylist();
+  async getRecentPlaylist(@Res() res: Response) {
+    const userId = res.locals.userId;
+    const data = await this.playlistsService.getRecentPlaylist(userId);
 
     return data;
   }
