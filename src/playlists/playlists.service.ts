@@ -28,8 +28,9 @@ export class PlaylistsService {
   async viewPlaylist(playlistId: string, forModify: boolean, userId: string) {
     if (forModify === false && userId) {
       //최근본 플레이리스트 등록, 봤던 플레이리스트 시간 최신화, 5개 이상시
-      await this.recentRepository.save({ userId, playlistId });
-      await this.recentRepository.update({ userId, playlistId }, {});
+      const viewedPlaylist = await this.recentRepository.findOne({ where: { userId, playlistId } })
+      if(!viewedPlaylist) await this.recentRepository.save({ userId, playlistId });
+      else await this.recentRepository.update({ userId, playlistId }, {});
 
       const userRecentCount = await this.recentRepository.count({
         where: { userId: userId },
