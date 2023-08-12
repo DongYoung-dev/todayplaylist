@@ -1,9 +1,11 @@
-import { Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm/index';
+import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm/index';
 @Entity()
 export class Recent {
   @PrimaryColumn()
+  recentId: string;
+  @Column()
   userId: string;
-  @PrimaryColumn()
+  @Column()
   playlistId: string;
   @UpdateDateColumn({
     type: 'timestamp',

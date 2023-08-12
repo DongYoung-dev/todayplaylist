@@ -26,7 +26,7 @@ export class PlaylistsService {
   }
 
   async viewPlaylist(playlistId: string, forModify: boolean, userId: string) {
-    if (forModify === false) {
+    if (forModify === false && userId) {
       //최근본 플레이리스트 등록, 봤던 플레이리스트 시간 최신화, 5개 이상시
       await this.recentRepository.save({ userId, playlistId });
       await this.recentRepository.update({ userId, playlistId }, {});
@@ -53,6 +53,11 @@ export class PlaylistsService {
         { playlistId },
         { viewCount: () => 'viewCount + 1' },
       );
+    } else if (forModify === false && !userId) {
+      await this.playlistRepository.update(
+        { playlistId },
+        { viewCount: () => 'viewCount + 1' },
+      );
     }
 
     //해당 플레이리스트 정보 반환
@@ -62,9 +67,15 @@ export class PlaylistsService {
     const likeCount = await this.likeRepository.count({
       where: { playlistId: playlist.playlistId },
     });
-    const isLiked = await this.likeRepository.findOne({
-      where: { userId, playlistId: playlist.playlistId },
-    });
+
+    let isLiked
+    if (userId) {
+      isLiked = await this.likeRepository.findOne({
+        where: { userId, playlistId: playlist.playlistId },
+      });
+    } else {
+      isLiked = false;
+    }
 
     const songs = [];
 
@@ -300,11 +311,11 @@ export class PlaylistsService {
         // 분과 시간 값이 한 자리 수인 경우 앞에 0을 추가
         const formattedTime = hours
           ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds
-              .toString()
-              .padStart(2, '0')}`
+            .toString()
+            .padStart(2, '0')}`
           : `${minutes.toString().padStart(2, '0')}:${seconds
-              .toString()
-              .padStart(2, '0')}`;
+            .toString()
+            .padStart(2, '0')}`;
         // console.log(formattedTime)
         // db에 videoId, title, formattedTime 저장
         const thisVideo = {
