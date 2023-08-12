@@ -29,7 +29,7 @@ export class PlaylistsController {
       userId,
     );
 
-    return data;
+    res.send(data);
   }
 
   @Patch('like')
@@ -71,7 +71,7 @@ export class PlaylistsController {
     else if (!q && isLiked)
       data = await this.playlistsService.getLikedPlaylist(page, size, userId);
 
-    return data;
+      res.send(data);
   }
 
   @Get('best')
@@ -79,7 +79,7 @@ export class PlaylistsController {
     const userId = res.locals.userId;
     const playlists = await this.playlistsService.getBestPlaylist(userId);
 
-    return { playlists };
+    res.send({playlists})
   }
 
   @Post('register')
@@ -128,7 +128,7 @@ export class PlaylistsController {
       userId,
     );
 
-    return data;
+    res.send(data);
   }
 
   @Get('modify/:playlistId')
@@ -143,7 +143,7 @@ export class PlaylistsController {
       userId,
     );
 
-    return data;
+    res.send(data);
   }
 
   @Patch('modify/:playlistId')
@@ -166,6 +166,6 @@ export class PlaylistsController {
     const userId = res.locals.userId;
     const data = await this.playlistsService.getRecentPlaylist(userId);
 
-    return data;
+    res.send(data);
   }
 }
