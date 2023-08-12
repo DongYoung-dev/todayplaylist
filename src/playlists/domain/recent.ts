@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm/index';
+import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm/index';
 @Entity()
 export class Recent {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   recentId: string;
   @Column()
   userId: string;

@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm/index';
+import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm/index';
 @Entity()
 export class Like {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   likeId: string;
   @Column()
   userId: string;
