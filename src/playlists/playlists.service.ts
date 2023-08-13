@@ -29,7 +29,7 @@ export class PlaylistsService {
     if (forModify === false && userId) {
       //최근본 플레이리스트 등록, 봤던 플레이리스트 시간 최신화, 5개 이상시
       const viewedPlaylist = await this.recentRepository.findOne({ where: { userId, playlistId } })
-      if(!viewedPlaylist) await this.recentRepository.save({ userId, playlistId });
+      if (!viewedPlaylist) await this.recentRepository.save({ userId, playlistId });
       else await this.recentRepository.update({ userId, playlistId }, {});
 
       const userRecentCount = await this.recentRepository.count({
@@ -142,16 +142,22 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         return {
           ...playlist,
           likeCount,
           videoId: JSON.parse(playlist.videoId),
           hashtag: JSON.parse(playlist.hashtag),
-          isLiked: isLiked ? true : false,
+          isLiked
         };
       }),
     );
@@ -188,16 +194,22 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         return {
           ...playlist,
           likeCount,
           videoId: JSON.parse(playlist.videoId),
           hashtag: JSON.parse(playlist.hashtag),
-          isLiked: isLiked ? true : false,
+          isLiked
         };
       }),
     );
@@ -224,16 +236,22 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+        
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         return {
           ...playlist,
           likeCount,
           videoId: JSON.parse(playlist.videoId),
           hashtag: JSON.parse(playlist.hashtag),
-          isLiked: isLiked ? true : false,
+          isLiked
         };
       }),
     );
@@ -354,9 +372,15 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+        
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         if (
           q &&
@@ -367,7 +391,7 @@ export class PlaylistsService {
             likeCount,
             videoId: JSON.parse(thisPlaylist.videoId),
             hashtag: JSON.parse(thisPlaylist.hashtag),
-            isLiked: !!isLiked,
+            isLiked,
           };
         } else {
           return null;
@@ -424,16 +448,22 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         return {
           ...thisPlaylist,
           likeCount,
           videoId: JSON.parse(thisPlaylist.videoId),
           hashtag: JSON.parse(thisPlaylist.hashtag),
-          isLiked: isLiked ? true : false,
+          isLiked,
         };
       }),
     );
@@ -476,16 +506,22 @@ export class PlaylistsService {
         const likeCount = await this.likeRepository.count({
           where: { playlistId: playlist.playlistId },
         });
-        const isLiked = await this.likeRepository.findOne({
-          where: { userId, playlistId: playlist.playlistId },
-        });
+        
+        let isLiked: Like | boolean = false;
+
+        if (userId) {
+          isLiked = await this.likeRepository.findOne({
+            where: { userId, playlistId: playlist.playlistId },
+          });
+          isLiked = !!isLiked;
+        }
 
         return {
           ...playlist,
           likeCount,
           videoId: JSON.parse(playlist.videoId),
           hashtag: JSON.parse(playlist.hashtag),
-          isLiked: isLiked ? true : false,
+          isLiked,
         };
       }),
     );
