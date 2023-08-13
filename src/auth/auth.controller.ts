@@ -124,6 +124,7 @@ export class AuthController {
     async logoutUser(@Res() res) {
         res
             .clearCookie('token', {
+                domain: '.todayplaylist.site',
                 secure: true,
                 httpOnly: true,
                 sameSite: 'none',
