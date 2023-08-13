@@ -544,8 +544,8 @@ export class PlaylistsService {
       const thisPlaylist = {
         thumbnailUrl: file.location,
         title: body.title,
-        videoId: JSON.stringify(body.videoId),
-        hashtag: JSON.stringify(body.hashtag),
+        videoId: body.videoId,
+        hashtag: body.hashtag,
       };
 
       await this.playlistRepository.update(playlistId, thisPlaylist);
@@ -553,8 +553,8 @@ export class PlaylistsService {
       const thisPlaylist = {
         thumbnailUrl: body.thumbnailUrl,
         title: body.title,
-        videoId: JSON.stringify(body.videoId),
-        hashtag: JSON.stringify(body.hashtag),
+        videoId: body.videoId,
+        hashtag: body.hashtag,
       };
 
       await this.playlistRepository.update(playlistId, thisPlaylist);
