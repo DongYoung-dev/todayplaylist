@@ -7,9 +7,31 @@
 
 2023.06 ~ 2023.08
 
-## 2️⃣ 깃허브 링크
+## 2️⃣ 서비스 화면
 
-https://github.com/HypeBBoy/backend
+### 메인페이지
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/1f52ed46-b895-47e9-8619-bce1b0c9da49)
+
+### 비로그인 시 구글로그인
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/fc6779fb-455f-48f0-a0dc-7a9bcbdbd225)
+
+### 플레이리스트 상세페이지
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/9e8afbe6-e02f-4e0f-bd2f-e77be97e311f)
+
+### 마이페이지
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/34df23e1-f766-49e7-91d2-9ecf3bc90853)
+
+### 찜한플리 페이지
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/47d68959-c04b-44f6-a32d-5e984952dcb2)
+
+### 등록한플리 페이지
+![image](https://github.com/HypeBBoy/backend/assets/86117661/749b2499-ca8e-49d5-b0b3-21f4cbe95c9b)
+
 
 ## 3️⃣ **Service Architecture**
 
