@@ -17,10 +17,13 @@
 
 ![image](https://github.com/HypeBBoy/backend/assets/86117661/fc6779fb-455f-48f0-a0dc-7a9bcbdbd225)
 
-### 플리 등록페이지
+### 플리 등록페이지, 수정페이지
 
-![image](https://github.com/HypeBBoy/backend/assets/86117661/966be0f0-9547-43f3-a5e8-ca10e8d83b44)
+![image](https://github.com/HypeBBoy/backend/assets/86117661/8eb14c2d-d1f0-4941-8f6c-6144d170313d)
 
+### 플리 등록페이지 (노래검색)
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/cea7123d-7a52-4efd-9610-079e85e2d9cc)
 
 ### 플레이리스트 상세페이지
 
