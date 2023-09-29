@@ -35,7 +35,7 @@
 
 ## 3️⃣ **Service Architecture**
 
-![Frame.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f38f106b-6592-458c-8140-b2283760cb90/Frame.png)
+<img width="1000" alt="Frame" src="https://github.com/HypeBBoy/backend/assets/86117661/e032e300-620d-4229-9f01-68f59b901687">
 
 ## 4️⃣ Trouble Shooting
 
@@ -52,4 +52,5 @@
 
 ## 5️⃣ Members
 
-[Members ](https://www.notion.so/f82a68ac9ef04657acccb05914fd90d2?pvs=21)
+![image](https://github.com/HypeBBoy/backend/assets/86117661/9a8e4922-c66b-4e34-beff-1c823621ae9b)
+
