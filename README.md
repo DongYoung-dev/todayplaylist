@@ -1,6 +1,6 @@
-![Frame_5_4](https://github.com/HypeBBoy/backend/assets/86117661/2b3d284d-3e98-44ae-9267-dfe655ebd184)
+![Frame_5_4](https://github.com/HypeBBoy/backend/assets/86117661/2b3d284d-3e98-44ae-9267-dfe655ebd184)  
 
-유튜브 API를 통해 제목, 해시태그와 함께 자신만의 플레이리스트를 등록하고,
+유튜브 API를 통해 제목, 해시태그와 함께 자신만의 플레이리스트를 등록하고,  
 찜한 플레이리스트를 재생할 수 있는 서비스
 
 ## 1️⃣ 프로젝트 기간
