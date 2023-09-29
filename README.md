@@ -17,6 +17,11 @@
 
 ![image](https://github.com/HypeBBoy/backend/assets/86117661/fc6779fb-455f-48f0-a0dc-7a9bcbdbd225)
 
+### 플리 등록페이지
+
+![image](https://github.com/HypeBBoy/backend/assets/86117661/966be0f0-9547-43f3-a5e8-ca10e8d83b44)
+
+
 ### 플레이리스트 상세페이지
 
 ![image](https://github.com/HypeBBoy/backend/assets/86117661/9e8afbe6-e02f-4e0f-bd2f-e77be97e311f)
