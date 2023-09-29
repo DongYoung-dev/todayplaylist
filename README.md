@@ -1,4 +1,4 @@
-![Frame_5_4.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/745c9705-2376-46fa-b807-b138c9f34808/Frame_5_4.png)
+![Frame_5_4](https://github.com/HypeBBoy/backend/assets/86117661/2b3d284d-3e98-44ae-9267-dfe655ebd184)
 
 ## 1️⃣ 프로젝트 기간
 
